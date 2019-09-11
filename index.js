@@ -32,60 +32,43 @@ bot.on('message', message=> {
       stop(message, serverQueue);
       return;
     }
+    else if(message.content.startsWith(`${PREFIX}ping`)) {
+      message.channel.send('Pong! My ping is ' + bot.ping + "ms");
+    }
+    else if(message.content.startsWith(`${PREFIX}join`)) {
+      channel = message.member.voiceChannel;
+      channel.join().then(connection => {
+        //The company is enough of a function :)
+      });
+    }
+    else if(message.content.startsWith(`${PREFIX}SNA`)) {
+      console.log("Playing Soviet National Anthem");
+      //Only true slav will understand
+      message.channel.send("Да товарищ");
+      channel = message.member.voiceChannel;
+      console.log("Joining channel " + channel.name);
 
-    //Akash the fatty function
-    if(message.content === "who is fat") {
+      channel.join().then(connection => {
+        const dispatcher = connection.playFile('National Anthem of USSR.mp3');
+        //When the song ends, leave the channel
+        dispatcher.on("end", end => {
+          channel.leave();
+        });
+      });
+    }
+    else if(message.content.startsWith(`${PREFIX}leave`)) {
+      console.log("Bye!");
+      message.channel.send("Bye!");
+      message.member.voiceChannel.leave();
+    }
+    else if(message.content.startsWith(`${PREFIX}whoisfat`)) {
       message.channel.send('<@267946818254405642> is fat');
     }
-
-    let args = message.content.substring(PREFIX.length).split(" ");
-
-    switch(args[0]) {
-      case 'ping':
-        message.channel.send('Pong! My ping is ' + bot.ping + "ms");
-        break;
-
-      //If someone is lonely in a voice channel :(
-      case 'join':
-        channel = message.member.voiceChannel;
-        channel.join().then(connection => {
-          //The company is enough of a function :)
-        });
-        break;
-
-      case 'SNA':
-        console.log("Playing Soviet National Anthem");
-
-        //Only true slav will understand
-        message.channel.send("Да товарищ");
-
-        channel = message.member.voiceChannel;
-        console.log("Joining channel " + channel.name);
-
-        channel.join().then(connection => {
-          const dispatcher = connection.playFile('National Anthem of USSR.mp3');
-
-          //When the song ends, leave the channel
-          dispatcher.on("end", end => {
-            channel.leave();
-          });
-        });
-        break;
-
-      case 'leave':
-        //Say bye bye to server and developer. Good bot.
-        console.log("Bye!");
-        message.channel.send("Bye!");
-        message.member.voiceChannel.leave();
-        break;
-
-      case 'help':
-        console.log(message.author.username + " requested help");
-        message.channel.send("Sent you a DM with my commands");
-        message.author.send("Don't forget the &\nping - ping the bot\nSNA - play the soviet national anthem\nleave - make the bot leave, duh\nhelp - you already know what that does\nplay - play a song in a voice channel. you must include a youtube video link\nskip - skip the song\nstop - stop playing the song");
-        break;
+    else if(message.content.startsWith(`${PREFIX}help`)) {
+      console.log(message.author.username + " requested help");
+      message.channel.send("Sent you a DM with my commands");
+      message.author.send("Don't forget the &\nping - ping the bot\nSNA - play the soviet national anthem\nleave - make the bot leave, duh\nhelp - you already know what that does\nplay - play a song in a voice channel. you must include a youtube video link\nskip - skip the song\nstop - stop playing the song");
     }
-
 })
 
 //Allows the bot to be able to play music from Youtube
