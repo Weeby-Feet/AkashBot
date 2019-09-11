@@ -76,7 +76,7 @@ bot.on('message', message=> {
         //Say bye bye to server and developer. Good bot.
         console.log("Bye!");
         message.channel.send("Bye!");
-        channel.leave();
+        message.member.voiceChannel.leave();
         break;
 
       case 'help':
