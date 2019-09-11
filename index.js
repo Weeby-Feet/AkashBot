@@ -32,7 +32,7 @@ bot.on('message', message=> {
       stop(message, serverQueue);
       return;
     }
-    
+
     //Akash the fatty function
     if(message.content === "who is fat") {
       message.channel.send('<@267946818254405642> is fat');
@@ -42,8 +42,17 @@ bot.on('message', message=> {
 
     switch(args[0]) {
       case 'ping':
-        message.channel.send('pong');
+        message.channel.send('Pong! My ping is ' + bot.ping + "ms");
         break;
+
+      //If someone is lonely in a voice channel :(
+      case 'join':
+        channel = message.member.voiceChannel;
+        channel.join().then(connection => {
+          //The company is enough of a function :)
+        });
+        break;
+
       case 'SNA':
         console.log("Playing Soviet National Anthem");
 
@@ -113,6 +122,7 @@ async function execute(message, serverQueue) {
     try {
       var connection = await voiceChannel.join();
       queueConstruct.connection = connection;
+      message.channel.send(`Now playing ${song.title}`);
       play(message.guild, queueConstruct.songs[0]);
     }
     catch(err) {
