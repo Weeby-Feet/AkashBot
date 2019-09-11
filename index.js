@@ -32,10 +32,7 @@ bot.on('message', message=> {
       stop(message, serverQueue);
       return;
     }
-    else {
-      message.channel.send("Enter a valid command blin!");
-    }
-
+    
     //Akash the fatty function
     if(message.content === "who is fat") {
       message.channel.send('<@267946818254405642> is fat');
