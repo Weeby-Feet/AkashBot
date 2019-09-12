@@ -17,23 +17,32 @@ const PREFIX = '&'
 //The bot listens for a message to be sent to any channel it can see
 bot.on('message', message=> {
 
+    var serverQueue;
+
     if(message.author.bot) return;
     if(!message.content.startsWith(PREFIX)) return;
 
+    //The bot can only be communicated with in a server
     if(message.guild) {
-      const serverQueue = queue.get(message.guild.id);
+      serverQueue = queue.get(message.guild.id);
+    }
+    else {
+      return;
     }
 
     //Music function commands
-    if(message.content.startsWith(`${PREFIX}play` && message.guild)) {
+    if(message.content.startsWith(`${PREFIX}play`)) {
+      console.log("Playing");
       execute(message, serverQueue);
       return;
     }
-    else if(message.content.startsWith(`${PREFIX}skip` && message.guild)) {
+    else if(message.content.startsWith(`${PREFIX}skip`)) {
+      console.log("Skipping");
       skip(message, serverQueue);
       return;
     }
-    else if(message.content.startsWith(`${PREFIX}stop` && message.guild)) {
+    else if(message.content.startsWith(`${PREFIX}stop`)) {
+      console.log("Stopping");
       stop(message, serverQueue);
       return;
     }
@@ -83,6 +92,15 @@ bot.on('message', message=> {
       message.channel.send("Bye!");
       message.member.voiceChannel.leave();
     }
+    else if(message.content.startsWith(`${PREFIX}fuckoff`)) {
+      if(!message.member || !message.member.voiceChannel) {
+        message.reply('Join a voice channel before telling me to do that m8');
+      }
+
+      console.log("Fucking off");
+      message.channel.send("Fuck you too " + message.member);
+      message.member.voiceChannel.leave();
+    }
     else if(message.content.startsWith(`${PREFIX}whoisfat`)) {
       message.channel.send('<@267946818254405642> is fat');
     }
@@ -97,6 +115,7 @@ bot.on('message', message=> {
 async function execute(message, serverQueue) {
   if(message.member === null || message.member.voiceChannel === null) {
     return;
+    console.log("Member needs to be in a voice channel first");
   }
 
   const args = message.content.split(' ');
