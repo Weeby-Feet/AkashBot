@@ -17,18 +17,23 @@ const PREFIX = '&'
 //The bot listens for a message to be sent to any channel it can see
 bot.on('message', message=> {
 
-    //Music function commands
-    const serverQueue = queue.get(message.guild.id);
+    if(message.author.bot) return;
+    if(!message.content.startsWith(PREFIX)) return;
 
-    if(message.content.startsWith(`${PREFIX}play`)) {
+    if(message.guild) {
+      const serverQueue = queue.get(message.guild.id);
+    }
+
+    //Music function commands
+    if(message.content.startsWith(`${PREFIX}play` && message.guild)) {
       execute(message, serverQueue);
       return;
     }
-    else if(message.content.startsWith(`${PREFIX}skip`)) {
+    else if(message.content.startsWith(`${PREFIX}skip` && message.guild)) {
       skip(message, serverQueue);
       return;
     }
-    else if(message.content.startsWith(`${PREFIX}stop`)) {
+    else if(message.content.startsWith(`${PREFIX}stop` && message.guild)) {
       stop(message, serverQueue);
       return;
     }
@@ -36,12 +41,25 @@ bot.on('message', message=> {
       message.channel.send('Pong! My ping is ' + bot.ping + "ms");
     }
     else if(message.content.startsWith(`${PREFIX}join`)) {
+      //Check that the user that summoned the bot is actually in a voice channel
+      if(!message.member || !message.member.voiceChannel) {
+        message.channel.send("Go join a voice channel first");
+        return;
+      }
+
       channel = message.member.voiceChannel;
+
       channel.join().then(connection => {
         //The company is enough of a function :)
       });
     }
     else if(message.content.startsWith(`${PREFIX}SNA`)) {
+      //Check that the user that summoned the bot is actually in a voice channel
+      if(!message.member || !message.member.voiceChannel) {
+        message.channel.send("Go join a voice channel first");
+        return;
+      }
+
       console.log("Playing Soviet National Anthem");
       //Only true slav will understand
       message.channel.send("Да товарищ");
@@ -57,6 +75,10 @@ bot.on('message', message=> {
       });
     }
     else if(message.content.startsWith(`${PREFIX}leave`)) {
+      if(!message.member || !message.member.voiceChannel) {
+        return;
+      }
+
       console.log("Bye!");
       message.channel.send("Bye!");
       message.member.voiceChannel.leave();
@@ -73,6 +95,10 @@ bot.on('message', message=> {
 
 //Allows the bot to be able to play music from Youtube
 async function execute(message, serverQueue) {
+  if(message.member === null || message.member.voiceChannel === null) {
+    return;
+  }
+
   const args = message.content.split(' ');
 
   const voiceChannel = message.member.voiceChannel;
