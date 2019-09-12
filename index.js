@@ -98,6 +98,7 @@ async function execute(message, serverQueue) {
       playing: true,
     };
 
+
     queue.set(message.guild.id, queueConstruct);
 
     queueConstruct.songs.push(song);
