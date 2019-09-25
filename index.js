@@ -10,7 +10,21 @@ const queue = new Map();
 var channel = '';
 
 bot.on('ready', () => {
-    console.log('AkashBot is now online!');
+    //Some fun output to mimic the ascii art logos of older software systems
+    console.log("============================");
+    console.log("||     GRID DYNAMICS      ||");
+    console.log("============================");
+    console.log("");
+    console.log("======================================")
+    console.log("|| WARNING: AkashBot is now online! ||");
+    console.log("======================================")
+    console.log("");
+    console.log("==============================================================================");
+    console.log("|| For operating instructions, please refer to operators manual             ||");
+    console.log("|| Only authorized users are permitted to interact with AkashBot            ||");
+    console.log("|| Grid Dynamics will not be held responsible for the actions of this bot   ||");
+    console.log("==============================================================================");
+    console.log("");
 });
 
 //Server members need to type this character beore their command for the bot to notice it
