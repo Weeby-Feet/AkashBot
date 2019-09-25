@@ -1,7 +1,11 @@
+# AkashBot
+
 Thank you for choosing AkashBot :)
 I appreciate any feedback, so feel free to create issues in the repo and I will see to them as soon as I can.
 
 Below are all the commands for AkashBot
+
+## AkashBot Commands
 
 &join - Get the bot to join a voice channel. The person that summons the bot must also be in a voice channel before summoning bot.
 
@@ -25,11 +29,11 @@ Below are all the commands for AkashBot
 
 
 
-Future Features
+## Future Features
 
 YOUTUBE SEARCHING
 
-I am hoping to add YouTube searching to the bot, so that any user will be able to simply type "&play SONG_NAME" and the bot will search YouTube and play the first result, without the user needing to go to youtube and find the link themself.
+I am hoping to add YouTube searching to the bot, so that any user will be able to simply type "&play SONG_NAME" and the bot will search YouTube and play the first result, without the user needing to go to YouTube and find the link themself.
 
 
 CUSTOM INSULTS
