@@ -149,7 +149,7 @@ bot.on('message', message=> {
     else if(message.content.startsWith(`${PREFIX}help`)) {
       console.log(message.author.username + " requested help");
       message.channel.send("Sent you a DM with my commands");
-      message.author.send("Don't forget the &\nping - ping the bot\nSNA - play the soviet national anthem\nleave - make the bot leave, duh\nhelp - you already know what that does\nplay - play a song in a voice channel. you must include a youtube video link\nskip - skip the song\nstop - stop playing the song");
+      message.author.send("Don't forget the &\nping - ping the bot\nSNA - play the soviet national anthem\nleave - make the bot leave, duh\nhelp - you already know what that does\nplay - play a song in a voice channel. you must include a youtube video link\nskip - skip the song\nstop - stop playing the song\nwhoisfat - find out who is the fatest of them all");
     }
 })
 
